@@ -1,10 +1,9 @@
 import React from 'react'
 
-export const revalidate = 3600;
-
 function Search({params: {locale}}: {params: {locale: string}}) {
+  console.log({search: locale});
   return (
-    <div>Search {locale}</div>
+    <div>Search Testing Page - {locale}</div>
   )
 }
 

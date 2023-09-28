@@ -46,19 +46,23 @@ export function middleware(request: NextRequest) {
   )
 
   // Redirect if there is no locale
+  const locale = getLocale(request);
   if (pathnameIsMissingLocale) {
-    return NextResponse.rewrite(
-      new URL(`${i18nConfig.basePath}/${defaultLocale}${pathname}`, request.url)
-    )
+    if(locale === defaultLocale) {
+      return NextResponse.rewrite(
+        new URL(`${i18nConfig.basePath}/${defaultLocale}${pathname}`, request.url)
+      )
+    }
+    
     // const locale = getLocale(request)
     // e.g. incoming request is /products
     // The new URL is now /en-US/products
-    // return NextResponse.redirect(
-    //   new URL(
-    //     `${i18nConfig.basePath}/${locale}${pathname.startsWith('/') ? '' : '/'}${pathname}`,
-    //     request.url
-    //   )
-    // )
+    return NextResponse.redirect(
+      new URL(
+        `${i18nConfig.basePath}/${locale}${pathname.startsWith('/') ? '' : '/'}${pathname}`,
+        request.url
+      )
+    )
   }
 }
 

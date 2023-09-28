@@ -8,7 +8,7 @@ export async function generateStaticParams() {
   return createPageRoutes(stateLists);
 }
 
-export default function StatePage({ params }: any) {
-  console.log(params);
-  return <div>StatePage</div>;
+export default function StatePage({params: {locale}}: {params: {locale: string}}) {
+  console.log({state: locale});
+  return <div>StatePage - {locale}</div>;
 }
