@@ -1,5 +1,6 @@
 import { createPageRoutes, transformStateCity } from "@/src/utils/common";
 import React from "react";
+import { notFound } from "next/navigation";
 
 export const revalidate = 3600;
 
@@ -8,7 +9,9 @@ export async function generateStaticParams() {
   return createPageRoutes(stateLists);
 }
 
-export default function StatePage({params: {locale}}: {params: {locale: string}}) {
-  console.log({state: locale});
-  return <div>StatePage - {locale}</div>;
+export default function StatePage({params: {locale, state}}: {params: {locale: string, state: string}}) {
+  if(state !== "arizona") {
+    notFound();
+}
+  return <div>StatePage - {state} - {locale}</div>;
 }
